@@ -1,0 +1,15 @@
+# Compiled binaries
+heist
+heist.exe
+*.o
+
+# Libraries and external downloads
+lib_win/
+glfw-3.4.bin.WIN64/
+glew-2.3.1/
+openal-soft-1.25.1-bin/
+*.zip
+*.tar.gz
+Ignore/
+# Data files (Optional: only if you want a fresh start on each device)
+heist_save.dat

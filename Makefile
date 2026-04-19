@@ -1,6 +1,6 @@
 CXX      = g++
 CXXFLAGS = -std=c++17 -O2 -Wall -Wextra -Wno-unused-parameter -Iinclude
-LIBS     = -lGL -lGLEW -lglfw -lm
+LIBS = -lGL -lGLEW -lglfw -lopenal -lm
 
 SRC      = src/main.cpp
 TARGET   = heist

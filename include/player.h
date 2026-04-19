@@ -113,7 +113,6 @@ void Player::init(const MetaData& meta, int weapon,
 
     itemInventory  = items;
     abilityLoadout = abilities;
-    float cdMult   = 1.f - bonusCooldown;
     abilityCooldowns.assign(abilities.size(), 0.f);
     itemCounts.assign(ITEM_DEFS.size(), 0);
     for(int i:items) if(i<(int)ITEM_DEFS.size())
@@ -136,7 +135,6 @@ float Player::noiseRadius() const {
     float r=stealthRadius;
     if(crouching) r*=0.5f;
     if(sprinting) r*=1.8f;
-    if(ghostStep||berserk==false&&crouching) {}
     if(ghostStep)  r=0.f;
     if(berserk)    r*=2.f;
     return r;

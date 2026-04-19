@@ -123,17 +123,18 @@ public:
         curTiles=tiles[f];
     }
 
+    // Public roomCenter — needed by GameState for spawning and rendering
+    Vec2 roomCenter(const Room& r) const {
+        return { (r.x + r.w/2.f)*TILE_SIZE, (r.y + r.h/2.f)*TILE_SIZE };
+    }
+
 private:
     void fillFloor(int floor, int t);
     void carveRoom(const Room& r, int floor);
     void carveCorridor(int x1,int y1,int x2,int y2, int floor);
     Room makeRoom(RoomType type, int attempt, int floor);
     bool roomOverlaps(const Room& r) const;
-    Vec2 roomCenter(const Room& r) const {
-        return { (r.x + r.w/2.f)*TILE_SIZE, (r.y + r.h/2.f)*TILE_SIZE };
-    }
-    Vec2 roomCenterWorld(const Room& r) const { return roomCenter(r); }
-    void placeStairsOrElevator(int floorA, int floorB, const Room& rA, const Room& rB);
+    void placeStairsOrElevator(int floorA, int floorB, const Room& rA, const Room& rB) {}
 };
 
 // ─── Implementations ──────────────────────────────────────────────────────────

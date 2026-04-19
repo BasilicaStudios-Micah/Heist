@@ -239,11 +239,15 @@ struct MetaData {
     float bonusStealth     = 0;
     float bonusLuck        = 0;
     float bonusCashMult    = 1.0f;
-    float bonusDamage      = 0;      // flat damage bonus
-    float bonusReload      = 0;      // % reload speed bonus
-    float bonusClipSize    = 0;      // % extra clip
-    float bonusCooldown    = 0;      // % cooldown reduction
-    float bonusXP          = 0;      // % extra XP
+    float bonusDamage      = 0;
+    float bonusReload      = 0;
+    float bonusClipSize    = 0;
+    float bonusCooldown    = 0;
+    float bonusXP          = 0;
+    bool  allWeaponsSilenced = false;
+    int   bonusItemSlots   = 0;    // extra loadout item slots
+    int   bonusItemCharges = 0;    // extra charges per item
+    float bonusMedkitHP    = 0;    // extra HP from medkits
     int   statPointsSpent  = 0;
 };
 

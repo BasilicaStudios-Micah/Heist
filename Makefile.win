@@ -1,0 +1,25 @@
+# --- Compiler and Tools ---
+CXX      = x86_64-w64-mingw32-g++
+# -D_USE_MATH_DEFINES fixes the M_PI errors
+# -DGLEW_STATIC is required for the static GLEW library
+CXXFLAGS = -std=c++17 -O2 -Wall -Iinclude -DGLEW_STATIC -D_USE_MATH_DEFINES
+
+# --- Library Paths and Linking ---
+# Ensure libglew32.a, libglfw3.a, and libopenal.a are in lib_win/
+LDFLAGS  = -Llib_win
+LIBS     = -lglew32 -lglfw3 -lopenal -lopengl32 -lgdi32 -luser32 -lkernel32 -lshell32
+
+# --- Project Files ---
+SRC      = src/main.cpp
+TARGET   = heist.exe
+
+# --- Build Rules ---
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS) $(LIBS) -static-libgcc -static-libstdc++ -static -lpthread
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all clean

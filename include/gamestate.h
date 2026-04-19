@@ -1636,11 +1636,7 @@ void GameState::renderSkillTree(Renderer& r){
         float len=v2len(d);
         if(len>0){
             Vec2 dn=v2norm(d);
-            Vec2 perp={-dn.y*2,dn.x*2};
-            // Just draw a quad approximation
-            r.drawQuadScreen(std::min(px2,cx2)-2,std::min(py2,cy2)-2,
-                             fabsf(cx2-px2)+4,fabsf(cy2-py2)+4,{0.f,0.f,0.f,0.f});
-            // Actually draw thicker line as multiple 1px segments
+            (void)dn; // direction used implicitly via d below
             int segs=(int)(len/6)+1;
             for(int s=0;s<segs;s++){
                 float t=(float)s/segs;
