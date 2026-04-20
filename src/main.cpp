@@ -95,7 +95,7 @@ int main() {
 
     glfwSetWindowPos(window, 0, 0);
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // vsync
+    glfwSwapInterval(0); // vsync
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) { return -1; }
