@@ -1,25 +1,33 @@
 # --- Compiler and Tools ---
 CXX      = x86_64-w64-mingw32-g++
+WINDRES  = x86_64-w64-mingw32-windres
+
 # -D_USE_MATH_DEFINES fixes the M_PI errors
 # -DGLEW_STATIC is required for the static GLEW library
 CXXFLAGS = -std=c++17 -O2 -Wall -Iinclude -DGLEW_STATIC -D_USE_MATH_DEFINES
 
 # --- Library Paths and Linking ---
-# Ensure libglew32.a, libglfw3.a, and libopenal.a are in lib_win/
 LDFLAGS  = -Llib_win
 LIBS     = -lglew32 -lglfw3 -lopenal -lopengl32 -lgdi32 -luser32 -lkernel32 -lshell32
 
 # --- Project Files ---
 SRC      = src/main.cpp
+RC_SRC   = src/resources.rc
+RC_OBJ   = res.o
 TARGET   = heist.exe
 
 # --- Build Rules ---
 all: $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS) $(LIBS) -static-libgcc -static-libstdc++ -static -lpthread
+# Rule to compile the resource file (metadata)
+$(RC_OBJ): $(RC_SRC)
+	$(WINDRES) $(RC_SRC) -o $(RC_OBJ)
+
+# Updated build rule to include $(RC_OBJ)
+$(TARGET): $(SRC) $(RC_OBJ)
+	$(CXX) $(CXXFLAGS) $(SRC) $(RC_OBJ) -o $(TARGET) $(LDFLAGS) $(LIBS) -static-libgcc -static-libstdc++ -static -lpthread
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) $(RC_OBJ)
 
 .PHONY: all clean
