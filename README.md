@@ -1,35 +1,19 @@
-# HEIST — Roguelike Bank Robbery
+# HEIST — BasilicaStudiosLLC (2026)
 
-A top-down roguelike where you rob procedurally generated banks.
-Every run earns meta XP that permanently unlocks new weapons, items,
-abilities, level themes, and base stat upgrades.
+HEIST is a top-down roguelike extraction shooter. Infiltrate procedurally generated financial institutions, bypass advanced security, and secure the loot. This is a mandatory hardcore experience: death is permanent and results in the immediate deletion of your progress.
 
-## Build Requirements
+## Game Overview
 
-- Linux (Ubuntu/Debian recommended)
-- GCC with C++17 support
-- OpenGL 3.3
-- GLFW3, GLEW, Mesa GL
-
-### Install dependencies (Ubuntu/Debian):
-```
-sudo apt-get install libglfw3-dev libglew-dev libgl1-mesa-dev freeglut3-dev
-```
-
-### Build:
-```
-cd heist
-make
-./heist
-```
+HEIST focuses on the high-stakes reality of professional robbery. Every bank layout is procedurally generated, requiring players to adapt to new patrol paths, camera placements, and vault locations in every run. To succeed, you must not only secure the cash but reach the extraction point alive.
 
 ## Controls
 
 | Key | Action |
 |-----|--------|
 | WASD / Arrow Keys | Move |
-| Mouse | Aim |
-| Left Click | Shoot |
+| Mouse | Aim / Look |
+| Left Click | Shoot / Attack |
+| F11 | Toggle Fullscreen / Windowed Mode |
 | C / Left Ctrl | Crouch (quieter, harder to detect) |
 | G (hold near vault) | Crack the vault |
 | 1 / 2 / 3 / 4 | Use item slot |
@@ -37,46 +21,27 @@ make
 | ESC | Pause / Back |
 | Enter | Confirm |
 
-## Gameplay
+## Gameplay Mechanics
 
 ### Objective
-Enter the bank, crack the vault (hold G), collect loot, and reach the EXIT.
+Enter the bank, crack the vault by holding the G key, collect the maximum amount of loot, and reach the EXIT. You must extract alive to keep your progression.
+
+### Mandatory Hardcore Mode
+This game features permanent death that cannot be disabled. If the player dies, the application triggers an immediate deletion of the save.dat file. All meta-progression, unlocked weapons, and skill tree upgrades are wiped upon death.
 
 ### Stealth vs Loud
-- Guards have vision cones — stay outside them or crouch
-- Security cameras sweep back and forth — time your crossings
-- Silenced weapons don't alert guards, loud weapons do
-- Getting detected raises the alarm and spawns more aggressive responses
-
-### Alarm Levels
-1. **Suspicious** — guard investigates
-2. **Alert** — guards chase and shoot on sight
-3. **Lockdown** — all guards alerted, cameras triggered
+Guards have vision cones; stay outside them or crouch to remain undetected. Security cameras sweep back and forth requiring precise timing. While silenced weapons allow for stealthy eliminations, loud weapons will alert the entire facility, raising the alarm level and spawning aggressive tactical responses.
 
 ### Meta Progression
-Every run (win or lose) earns meta XP. Spend XP in the **Skill Trees** to:
-- Unlock new **Weapons** (SMG, Shotgun, Sniper, EMP Rifle, Railgun)
-- Unlock new **Items** (EMP Grenade, Smoke Bomb, Cloak Suit, Hacking Kit...)
-- Unlock new **Abilities** (Sprint, Wall Hack, Time Slow, Adrenaline...)
-- Unlock new **Level Themes** (Casino, Museum, Federal Reserve, Swiss Vault...)
-- Upgrade **Base Stats** (Max HP, Speed, Stealth, Luck, Cash Multiplier)
+Every successful extraction earns XP. Spend XP in the Skill Trees to unlock new weapons such as the EMP Rifle and Railgun, items like the Cloak Suit, and unique abilities including Time Slow and Wall Hacks. You may also upgrade base stats like Max HP, Stealth, and Luck.
 
-### Scoring
-- Cash collected (scales with theme difficulty)
-- Stealth bonus (never detected = +Ghost bonus)
-- Vault bonus (crack the vault for big reward)
-- Time bonus (faster = better score)
+## Technical Details
 
-### Themes (unlock via skill tree)
-| Theme | Guards | Cameras | Loot Mult | Unlock |
-|-------|--------|---------|-----------|--------|
-| Corner Bank | 3 | 1 | 1.0x | Start |
-| Casino | 5 | 3 | 1.8x | Level 4 |
-| Art Museum | 4 | 4 | 2.2x | Level 7 |
-| Federal Reserve | 8 | 6 | 3.5x | Level 11 |
-| Swiss Vault | 6 | 8 | 4.0x | Level 16 |
-| Offshore Fortress | 12 | 10 | 6.0x | Level 22 |
+- Developer: BasilicaStudiosLLC
+- Graphics: OpenGL 3.3 Core Profile
+- Audio: OpenAL Procedural PCM System
+- Save File: Progress is saved to save.dat
 
-## Save File
-Progress is saved to `heist_save.dat` in the working directory.
-Delete it to reset all meta progression.
+---
+
+© 2026 BasilicaStudiosLLC. All rights reserved.
