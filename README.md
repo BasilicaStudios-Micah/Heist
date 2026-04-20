@@ -28,6 +28,7 @@ Enter the bank, crack the vault by holding the G key, collect the maximum amount
 
 ### Mandatory Hardcore Mode
 This game features permanent death that cannot be disabled. If the player dies, the application triggers an immediate deletion of the save.dat file. All meta-progression, unlocked weapons, and skill tree upgrades are wiped upon death.
+We are working on making this dissablable for those who don't want to*
 
 ### Stealth vs Loud
 Guards have vision cones; stay outside them or crouch to remain undetected. Security cameras sweep back and forth requiring precise timing. While silenced weapons allow for stealthy eliminations, loud weapons will alert the entire facility, raising the alarm level and spawning aggressive tactical responses.
