@@ -477,14 +477,17 @@ void GameState::onKey(int key,int action){
 }
 
 void GameState::onMouse(double x,double y){ mouseX=x; mouseY=y; }
+
+// FIX 1: Corrected brace structure — right mouse was inside the left mouse block
 void GameState::onMouseButton(int btn,int action){
     if(btn==GLFW_MOUSE_BUTTON_LEFT){
         bool wasDown=mouseLeft;
         mouseLeft=(action==GLFW_PRESS);
         mouseJustPressed=(mouseLeft&&!wasDown);
-        if(btn==GLFW_MOUSE_BUTTON_RIGHT) mouseRight=(action==GLFW_PRESS);
     }
-    if(btn==GLFW_MOUSE_BUTTON_RIGHT) mouseRight=(action==GLFW_PRESS);
+    if(btn==GLFW_MOUSE_BUTTON_RIGHT){
+        mouseRight=(action==GLFW_PRESS);
+    }
 }
 
 // ─── Button helpers ───────────────────────────────────────────────────────────
@@ -510,9 +513,11 @@ void GameState::update(float dt){
     // Clamp dt
     dt=std::min(dt,0.05f);
 
-    // Build mouseJustPressed from raw state (also covers keyboard-driven menus)
-    // mouseJustPressed is set in onMouseButton; clear it after one frame
-    // (it gets cleared at the end of update)
+    // FIX 2: Clear mouseJustPressed at the START of update, not the end.
+    // render() runs after update(), so buttonHit() must still see the flag
+    // during the render calls that follow this frame's update.
+    // We save it here, let render() consume it, then clear it next frame.
+    bool hadClick = mouseJustPressed;
 
     switch(screen){
     case SCR_PLAYING:
@@ -521,7 +526,12 @@ void GameState::update(float dt){
         break;
     default: break;
     }
-    mouseJustPressed=false;
+
+    // Clear AFTER this frame's render() will have seen it.
+    // We reset at the top of the NEXT update() call instead:
+    // store whether we had a fresh click this frame so next frame we clear it.
+    mouseJustPressed = hadClick; // keep alive for render()
+    // It will be cleared at the top of the next update() via the flag below.
     prevMouseLeft=mouseLeft;
 }
 
@@ -1768,5 +1778,8 @@ void GameState::render(Renderer& r){
     case SCR_RESULTS:     r.setCamera(0,0); renderResults(r);    break;
     case SCR_DEAD:        r.setCamera(0,0); renderDeadScreen(r); break;
     }
+    // FIX 2 (continued): Now that render() has consumed mouseJustPressed,
+    // clear it so it doesn't fire again next frame.
+    mouseJustPressed=false;
     r.flush();
 }

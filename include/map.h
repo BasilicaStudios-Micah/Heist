@@ -251,6 +251,11 @@ void Map::generate(int seed, int theme, int metaLevel){
     tryPlace(ROOM_LOBBY,0);
     rooms[0].sectorId=0;
 
+    // FIX: Vault rooms placed SECOND — before anything else fills the map.
+    // Previously they were placed last, causing tryPlace to fail on small
+    // themes like Corner Bank where the map was already packed.
+    for(int i=0;i<td.vaultRooms;i++) tryPlace(ROOM_VAULT,0);
+
     // Required rooms by theme
     int basicCount=td.targetRooms+metaLevel/4;
     basicCount=std::min(basicCount,16);
@@ -282,9 +287,6 @@ void Map::generate(int seed, int theme, int metaLevel){
     // Storage rooms
     for(int i=0;i<td.storageRooms;i++) tryPlace(ROOM_STORAGE,0);
 
-    // Vault rooms
-    for(int i=0;i<td.vaultRooms;i++) tryPlace(ROOM_VAULT,0);
-
     // Barracks
     if(td.hasBarracks){
         tryPlace(ROOM_BARRACKS,0);
@@ -293,11 +295,12 @@ void Map::generate(int seed, int theme, int metaLevel){
 
     // ── Build upper floors ───────────────────────────────────────────────
     for(int f=1;f<numFloors;f++){
+        // FIX: Vault rooms placed first on upper floors too
+        for(int i=0;i<td.vaultRooms;i++) tryPlace(ROOM_VAULT,f);
         int upperBasic=basicCount/2+2;
         for(int i=0;i<upperBasic;i++) tryPlace(ROOM_BASIC,f);
         for(int i=0;i<hallCount/2+1;i++) tryPlace(ROOM_HALLWAY,f);
         if(td.hasBarracks && f<numFloors-1) tryPlace(ROOM_BARRACKS,f);
-        for(int i=0;i<td.vaultRooms;i++) tryPlace(ROOM_VAULT,f);
         for(int i=0;i<td.serverRooms;i++){
             if(tryPlace(ROOM_SERVER,f)){
                 Room& sr=rooms.back();
